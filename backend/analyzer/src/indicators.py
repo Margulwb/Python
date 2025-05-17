@@ -1,0 +1,31 @@
+import ta
+
+def add_technical_indicators(df):
+    df = df.copy()
+    df['SMA_14'] = ta.trend.sma_indicator(df['Close'], window=14)
+    df['RSI_14'] = ta.momentum.rsi(df['Close'], window=14)
+    macd = ta.trend.macd(df['Close'])
+    df['MACD'] = macd
+    bb = ta.volatility.BollingerBands(df['Close'], window=20)
+    df['BB_High'] = bb.bollinger_hband()
+    df['BB_Low'] = bb.bollinger_lband()
+    df['CCI'] = ta.trend.cci(df['High'], df['Low'], df['Close'], window=20)
+    df['EMA_14'] = ta.trend.ema_indicator(df['Close'], window=14)
+    df['WMA_14'] = ta.trend.wma_indicator(df['Close'], window=14)
+    df['WILLR_14'] = ta.momentum.williams_r(df['High'], df['Low'], df['Close'], lbp=14)
+    df['STOCH_K'] = ta.momentum.stoch(df['High'], df['Low'], df['Close'], window=14)
+    df['STOCH_D'] = ta.momentum.stoch_signal(df['High'], df['Low'], df['Close'], window=14)
+    df['ATR_14'] = ta.volatility.average_true_range(df['High'], df['Low'], df['Close'], window=14)
+    df['OBV'] = ta.volume.on_balance_volume(df['Close'], df['Volume'])
+    df['CMF'] = ta.volume.chaikin_money_flow(df['High'], df['Low'], df['Close'], df['Volume'], window=14)
+    df['ROC'] = ta.momentum.roc(df['Close'], window=14)
+    ichimoku = ta.trend.IchimokuIndicator(df['High'], df['Low'])
+    df['ICHIMOKU_A'] = ichimoku.ichimoku_a()
+    df['ICHIMOKU_B'] = ichimoku.ichimoku_b()
+    donchian = ta.volatility.DonchianChannel(df['High'], df['Low'], df['Close'], window=20)
+    df['DONCHIAN_H'] = donchian.donchian_channel_hband()
+    df['DONCHIAN_L'] = donchian.donchian_channel_lband()
+    df['MFI'] = ta.volume.money_flow_index(df['High'], df['Low'], df['Close'], df['Volume'], window=14)
+    df['EOM'] = ta.volume.ease_of_movement(df['High'], df['Low'], df['Volume'], window=14)
+    df['FI'] = ta.volume.force_index(df['Close'], df['Volume'], window=14)
+    return df

@@ -1,0 +1,17 @@
+services:
+  analyzer:
+    build:
+      context: ./backend/analyzer
+      dockerfile: Dockerfile
+    container_name: analyzer
+    ports:
+      - "5000:5000"
+  notifier:
+    build:
+      context: ./backend/notifier
+      dockerfile: Dockerfile
+    container_name: notifier
+    environment:
+      - ANALYZER_URL=http://analyzer:5000/signal
+    depends_on:
+      - analyzer
