@@ -1,11 +1,16 @@
 import ta
 
 def add_technical_indicators(df):
+    print("Columns in input DataFrame:", df.columns)
+    print("First few rows of input DataFrame:", df.head())
+    
     df = df.copy()
     df['SMA_14'] = ta.trend.sma_indicator(df['Close'], window=14)
     df['RSI_14'] = ta.momentum.rsi(df['Close'], window=14)
     macd = ta.trend.macd(df['Close'])
     df['MACD'] = macd
+    df['Signal_Line'] = ta.trend.macd_signal(df['Close'])
+    df['MACD_Histogram'] = ta.trend.macd_diff(df['Close'])
     bb = ta.volatility.BollingerBands(df['Close'], window=20)
     df['BB_High'] = bb.bollinger_hband()
     df['BB_Low'] = bb.bollinger_lband()

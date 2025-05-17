@@ -122,6 +122,8 @@ Zbudować narzędzie, które automatycznie:
 - Generuje sygnały inwestycyjne (kup/sprzedaj/trzymaj),
 - Powiadamia użytkownika o rekomendowanych działaniach.
 
+- pokazuje zysk
+
 ---
 
 ## 🧠 Wykorzystane technologie

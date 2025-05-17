@@ -6,12 +6,30 @@ services:
     container_name: analyzer
     ports:
       - "5000:5000"
+
   notifier:
     build:
       context: ./backend/notifier
       dockerfile: Dockerfile
     container_name: notifier
+    ports:
+      - "5001:5001"
     environment:
-      - ANALYZER_URL=http://analyzer:5000/signal
+      - ANALYZER_URL=http://analyzer:5000
+      - MONGO_URI=mongodb://mongo:27017/
     depends_on:
       - analyzer
+      - mongo
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/mg/mongo-dat:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+    driver: local
