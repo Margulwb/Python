@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+fastapi-utils
+pandas
+yfinance
+ta
+apscheduler
+pymongo
+requests
+scikit-learn
+numpy
+typing-inspect
+mypy-extensions
